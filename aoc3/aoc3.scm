@@ -1,4 +1,4 @@
-dvent of Code 2017 Exercise 3
+;;; Advent of Code 2017 Exercise 3
 ;;; Copyright Michael Lazear (C) 2017
 ;;; upper-left square = (2d)^2 + 1 - average value per depth
 ;;; lower-right square = (2d + 1)^2 - max value per depth
