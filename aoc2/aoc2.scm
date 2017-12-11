@@ -1,17 +1,33 @@
 (define (row-checksum row)
     (- (apply max row) (apply min row)))
-(define (matrix-checksum matrix)
+
+;; find evenly divisible numbers in row, return result of that division
+(define (row-checksum-mult row)
+    (let iter ((first (car row)) (rest (cdr row)))
+         (if (null? rest) 
+             #f
+            (let ((k (map (lambda (x) (list (or (integer? (/ x first)) (integer? (/ first x))) x)) rest)))
+              (if (assoc #t k)
+                  (max (/ first (cadr (assoc #t k))) (/ (cadr (assoc #t k)) first))
+              (iter (car rest) (cdr rest)))))))
+
+;; add in function argument
+(define (matrix-checksum matrix f)
     (define (iter next total) 
         (if (null? next) 
             total
-            (iter (cdr next) (+ total (row-checksum (car next))))))
-    (iter matrix 0))
+            (iter (cdr next) (+ total (f (car next))))))
+    (iter matrix 0))          
 
 (define matrix1
-    '(
-         (5 1 9 5)
+    '(   (5 1 9 5)
          (7 5 3)
          (2 4 6 8)))
+(define matrix2
+    '(   (5 9 2 8)
+         (9 4 7 3)
+         (3 8 6 5)))
+     
 (define input
     '(
          (626	2424	2593	139	2136	163	1689	367	2235	125	2365	924	135	2583	1425	2502)
